@@ -2,8 +2,10 @@ import React from "react";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from "../screen/Home";
-import Cities from "../screen/Cities";
-import Profile from "../screen/Profile";
+// import Cities from "../screen/Cities";
+// import Profile from "../screen/Profile";
+import StackNavigation from "./StackNavigation"
+import UserNavigation from "./UserNavigation"
 
     const Tab = createMaterialBottomTabNavigator();
 
@@ -22,14 +24,14 @@ export default function TabNavigation() {
 
             <Tab.Screen 
             name="Cities" 
-            component={Cities} 
+            component={StackNavigation} 
             options={{
                 tabBarLabel: 'Cities',
                 tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="city" color={color} size={26} />),}} />
 
             <Tab.Screen 
             name="Profile" 
-            component={Profile} 
+            component={UserNavigation} 
             options={{
                 tabBarLabel: 'Profile',
                 tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account" color={color} size={26} />),}} />

@@ -2,13 +2,19 @@ import { StyleSheet, View, ImageBackground, SafeAreaView, TextInput, Button, Tex
 
 const image = require("../images/background.png")
 
-export default function Profile({navigation}) {
+export default function SignUp({navigation}) {
 return (
     <View style={styles.container}>
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
             <View style={styles.formcontainer}> 
-                <Text style={styles.titleform}>Welcome again!</Text>
+                <Text style={styles.titleform}>Register Now!</Text>
                     <SafeAreaView style={styles.inputcontainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Fullname"/>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Photo URL"/>
                             <TextInput
                                 style={styles.input}
                                 placeholder="Email"/>
@@ -17,7 +23,7 @@ return (
                                 placeholder="Password"/>
                             <Button style={styles.button} title="Sign Up"/>
                     </SafeAreaView>
-                <Text style={styles.register} onPress={() => navigation.navigate('register')}>You still don't have an account? go to SignUp!</Text>
+                <Text style={styles.login} onPress={() => navigation.navigate('profile')}>You have account? go to SignIn!</Text>
             </View>
         </ImageBackground>
     </View>
@@ -38,7 +44,7 @@ formcontainer: {
     display:"flex",
     justifyContent: "center",
     alignItems: "center",
-    height: 400,
+    height: 550,
     width: 300,
     backgroundColor: "#ffff",
     borderRadius: 50,
@@ -61,10 +67,10 @@ button: {
 
 },
 titleform: {
-    fontSize: 40,
+    fontSize: 50,
     marginTop: 50
 },
-register: {
+login: {
     color: "blue"
 }
 });
