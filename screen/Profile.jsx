@@ -1,22 +1,56 @@
 import { StyleSheet, View, ImageBackground, SafeAreaView, TextInput, Button, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import userActions from '../redux/actions/userActions'
+import { Form, FormItem } from 'react-native-form-component';
 
 const image = require("../images/background.png")
 
 export default function Profile({navigation}) {
+
+    const [email, setEmail] = useState("")
+    const [password , setPassword] = useState("")
+
+    const dispatch = useDispatch()
+    const user = useSelector(store => store.userReducers.user)
+
+    async function handleSubmit() {
+        const logedUser = {
+            email: email,
+            password: password,
+            from: "form-Signin",
+        }
+        dispatch(userActions.signInUser(logedUser))
+    }
+
 return (
     <View style={styles.container}>
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
             <View style={styles.formcontainer}> 
                 <Text style={styles.titleform}>Welcome again!</Text>
-                    <SafeAreaView style={styles.inputcontainer}>
-                            <TextInput
+
+                    <Form 
+                    onButtonPress={() => handleSubmit()}
+                    style={styles.inputcontainer}
+                    buttonText='SIGN IN'
+                    buttonStyle={{ backgroundColor: '#587ee8' }}>
+
+                            <FormItem
                                 style={styles.input}
-                                placeholder="Email"/>
-                            <TextInput
+                                isRequired
+                                value={email}
+                                placeholder="Email"
+                                onChangeText={(mail) => setEmail(mail)}/>
+
+                            <FormItem
                                 style={styles.input}
-                                placeholder="Password"/>
-                            <Button style={styles.button} title="Sign Up"/>
-                    </SafeAreaView>
+                                isRequired
+                                value={password}
+                                placeholder="Password"
+                                onChangeText={(pass) => setPassword(pass)}/>
+
+                    </Form>
+
                 <Text style={styles.register} onPress={() => navigation.navigate('register')}>You still don't have an account? go to SignUp!</Text>
             </View>
         </ImageBackground>
