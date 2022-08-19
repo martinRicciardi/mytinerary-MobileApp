@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { AsyncStorage } from 'react-native';
 
 const userActions = {
     signUpUser: (userData) => {
@@ -18,7 +19,7 @@ const userActions = {
             const res = await axios.post("https://mytinerary-ricciardi-back.herokuapp.com/api/signIn", {logedUser})
             // dispatch({type: "MESSAGE", payload: console.log(res)})
             if(res.data.success) {
-                localStorage.setItem('token', res.data.response.token)
+                await AsyncStorage.setItem('@token', res.data.response.token)
                 dispatch({
                     type: "USER",
                     payload: res.data.response.userData,
@@ -42,7 +43,7 @@ const userActions = {
     signOutUser: (email) => {
         return async (dispatch, getState) => {
             const user = await axios.post("https://mytinerary-ricciardi-back.herokuapp.com/api/signOut", {email})
-            localStorage.removeItem("token")
+            await AsyncStorage.removeItem("@token")
             dispatch({type: "USER",
                 message: user.data.message,
                 payload: null})
