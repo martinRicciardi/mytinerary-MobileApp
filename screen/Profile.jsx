@@ -3,58 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import userActions from '../redux/actions/userActions'
 import { Form, FormItem } from 'react-native-form-component';
+import SignIn from '../components/SignIn';
 
 const image = require("../images/background.png")
 
-export default function Profile({navigation}) {
+export default function Profile() {
 
-    const [email, setEmail] = useState("")
-    const [password , setPassword] = useState("")
-
-    const dispatch = useDispatch()
     const user = useSelector(store => store.userReducers.user)
 
-    async function handleSubmit() {
-        const logedUser = {
-            email: email,
-            password: password,
-            from: "form-Signin",
-        }
-        dispatch(userActions.signInUser(logedUser))
-    }
-
 return (
+    user? 
     <View style={styles.container}>
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
             <View style={styles.formcontainer}> 
-                <Text style={styles.titleform}>Welcome again!</Text>
-
-                    <Form 
-                    onButtonPress={() => handleSubmit()}
-                    style={styles.inputcontainer}
-                    buttonText='SIGN IN'
-                    buttonStyle={{ backgroundColor: '#587ee8' }}>
-
-                            <FormItem
-                                style={styles.input}
-                                isRequired
-                                value={email}
-                                placeholder="Email"
-                                onChangeText={(mail) => setEmail(mail)}/>
-
-                            <FormItem
-                                style={styles.input}
-                                isRequired
-                                value={password}
-                                placeholder="Password"
-                                onChangeText={(pass) => setPassword(pass)}/>
-
-                    </Form>
-
-                <Text style={styles.register} onPress={() => navigation.navigate('register')}>You still don't have an account? go to SignUp!</Text>
+                <Text style={styles.titleform}>Account</Text>
             </View>
         </ImageBackground>
-    </View>
+    </View> : <SignIn/>
 );
 }
 
